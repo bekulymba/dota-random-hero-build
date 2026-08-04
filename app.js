@@ -31,7 +31,22 @@ function shuffled(arr) {
 // патчем, который ещё не попал в дата-файл). Добавляй id сюда при необходимости —
 // см. также кнопку "реролл" на каждом слоте, которая решает проблему point-in-time.
 const BANNED_IDS = new Set([
-  // 'aeon_disk',
+  // Necronomicon (все уровни) — удалён патчем 7.29 (2021).
+  'necronomicon', 'necronomicon_2', 'necronomicon_3',
+  // Diffusal Blade 2 — у Diffusal Blade нет второго уровня с патча 7.07,
+  // но dotaconstants до сих пор хранит эту запись (для старых реплеев).
+  'diffusal_blade_2',
+  // Wraith Pact — удалён патчем 7.33 (2023).
+  'wraith_pact',
+  // Cornucopia — удалён патчем 7.41.
+  'cornucopia',
+  // Pocket Roshan — не обычный магазинный предмет, а эксклюзив режима
+  // Mutation из батлпасса The International 2018. В обычной игре не покупается.
+  'pocket_roshan',
+  // Aghanim's Shard — всегда доступен к покупке (не ситуативный дроп),
+  // поэтому не создаёт ощущения "особого" слота в билде — просто отъедает
+  // шанс у остальных предметов.
+  'aghanims_shard',
 ]);
 
 // Минимальная цена предмета для генерации. Дешёвые "почти стартовые" вещи
@@ -54,10 +69,14 @@ function keepFinalTierOnly(items) {
   return Array.from(bestByName.values());
 }
 
-const POOL = keepFinalTierOnly(ITEMS);
+// Важен порядок: сначала убираем забаненные/удалённые предметы, и только
+// потом дедуплицируем по финальному тиру. Если сделать наоборот, дедуп может
+// оставить в пуле как раз забаненный старший уровень (Diffusal Blade 2) и
+// выкинуть единственный актуальный (Diffusal Blade) — предмет пропадёт совсем.
+const POOL = keepFinalTierOnly(ITEMS.filter(item => !BANNED_IDS.has(item.id)));
 
 function isAvailable(item) {
-  return !BANNED_IDS.has(item.id) && item.cost >= MIN_ITEM_COST;
+  return item.cost >= MIN_ITEM_COST;
 }
 
 function pickBuild(weirdness) {
