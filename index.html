@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Dota Build</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="title">
+    <h1>RANDOM BUILD</h1>
+    <p>Честный случайный челлендж. Никаких попыток его исправить.</p>
+  </div>
+
+  <div class="hero-card" id="heroCard"></div>
+
+  <div class="build-panel">
+    <div class="build-header">
+      <h2>Порядок покупки</h2>
+      <div class="total-cost">Всего: <span id="totalCost">0</span> золота</div>
+    </div>
+    <div class="slots" id="buildSlots"></div>
+
+    <div class="score-row hidden" id="scoreRow">
+      <span class="score-label">Challenge Score</span>
+      <span class="score-stars" id="scoreStars"></span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="btnHero">🎲 Новый герой</button>
+    <button class="btn" id="btnBuild">🎲 Новый билд</button>
+    <button class="btn btn-primary" id="btnAll">🎲 Всё сразу</button>
+  </div>
+
+  <div class="options">
+    <div class="option-row">
+      <div class="option-text">
+        <span class="option-title">Weirdness</span>
+        <span class="option-desc">Отключает запрет на повторы: возможны 3 Parasma, 2 Radiance и т.д.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleWeirdness">
+        <span class="switch-track"></span>
+      </label>
+    </div>
+    <div class="option-row">
+      <div class="option-text">
+        <span class="option-title">Difficulty</span>
+        <span class="option-desc">Показывать Challenge Score билда</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleDifficulty">
+        <span class="switch-track"></span>
+      </label>
+    </div>
+  </div>
+
+  <footer>Vanilla JS · без сервера · без зависимостей (кроме anime.js для красоты)</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script src="data/heroes.js"></script>
+<script src="data/items.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
